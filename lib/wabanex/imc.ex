@@ -9,7 +9,7 @@ defmodule Wabanex.IMC do
     data =
       content
       |> String.split("\n")
-      |> Enum.map(fn line -> parse_line(line) end)
+      |> Enum.map(&parse_line/1)
       |> Enum.into(%{})
 
     {:ok, data}
