@@ -2,8 +2,9 @@ defmodule Wabanex.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  @primary_key {:id, :binary_id, autogenerate: true}
+
   @fields [:email, :password, :name]
-  @email_regex ~r/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
   schema "users" do
     field :email, :string
@@ -19,7 +20,7 @@ defmodule Wabanex.User do
     |> validate_required(@fields)
     |> validate_length(:password, min: 6)
     |> validate_length(:name, min: 2)
-    |> validate_format(:email, @email_regex)
+    |> validate_format(:email, ~r/@/)
     |> unique_constraint([:email])
   end
 end
